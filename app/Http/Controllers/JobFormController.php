@@ -101,6 +101,15 @@ class JobFormController extends Controller
         $ob->delete();
         return back();
       }
+      public function Search(Request $request)
+      {
+        if($request->isMethod('post'))
+        {
+            $name=$request->get('q');
+            $data=job_form::where('ticket', $name)->get();
+            return view('SearchRecord',compact('data'));
+        }
+      }
 
 }
 

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
+
     <h2>Applicant List</h2>
     <div class="table-wrapper">
         <table class="fl-table">
