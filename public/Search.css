@@ -51,4 +51,15 @@ body{
     margin-top: 100px;
    margin-left: 200px;
    width: 80%;
+   border-radius: solid 50px;
 }
+.tab tr .under{
+    background-color: blue;
+}
+.tab tr .selec{
+    background-color: green;
+}
+.tab tr .rejece{
+    background-color: red;
+}
+

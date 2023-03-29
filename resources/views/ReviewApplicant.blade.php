@@ -43,10 +43,17 @@
                 <th>{{ $d->city }}</th>
                 <th>{{ $d->experience }}</th>
                 <th>{{ $d->radio }}</th>
-                <td><a href="process/1/{{ $d->id }}"><input type="button" name="btn" value="Selected"></a>
-                    <a href="process/2/{{ $d->id }}"><input type="button" name="btn" value="Rejected"></a></td>
+                <td><a href="process/1/{{ $d->id }}"><input class="selc" type="button" name="btn" value="Selected"></a>
+                    <a href="process/2/{{ $d->id }}"><input class="rejc"  type="button" name="btn" value="Rejected"></a></td>
               </tr>
               @endforeach
+              <script>
+                var msg = '{{Session::get('alert')}}';
+                var exist = '{{Session::has('alert')}}';
+                if(exist){
+                  alert(msg);
+                }
+              </script>
             </tbody>
           </table>
         </div>

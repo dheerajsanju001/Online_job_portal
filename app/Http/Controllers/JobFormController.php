@@ -11,6 +11,7 @@ use Hash;
 
 class JobFormController extends Controller
 {
+    //****************************CANDIDATE INFO FUNCTION SAVE JOB FORM DATA******************* */
     public function CandidateInfo(Request $request)
     {
         $Validate=Validator::make($request->all(),
@@ -64,10 +65,11 @@ class JobFormController extends Controller
         ]);
     return view('JobForm',compact('data'));
     }
+
+    //****************************ADMIN USER FUNCTION MATHCHES CREDENTIALS ARE AUTHORIZED******************* */
     public function AdminCredentials(Request $request)
     {
         $add=new AdminUser;
-        $data=job_form::get();
         if($request->isMethod('post'))
         {
             $email=$request->get('email');
@@ -75,7 +77,7 @@ class JobFormController extends Controller
             $row=AdminUser::where(['email'=>$email,'password'=>$password])->first();
             if(!empty($row))
             {
-                return view('Applicantions',compact('data'));
+                return redirect('Applicantions');
             }
             else {
                 return back()->withErrors('Please fill Right email and password');
@@ -83,24 +85,39 @@ class JobFormController extends Controller
         }
         return view('JobForm');
     }
+
+     //****************************DISPLAY CANDIDATE LIST FUNCTION SHOWS CANDIDATE APPLICATION LIST******************* */
+    public function DisplayCandidateList()
+    {
+        $data=job_form::get();
+        return view('Applicantions',compact('data'));
+    }
+
+    //****************************SHOW APLLICATION FUNCTION SHOW PARTICULAR CANDIDATE,s  INFO******************* */
     public function ShowApplication($id)
     {
         $data=job_form::where('id',$id)->get();
         return view('ReviewApplicant',compact('data'));
     }
+
+    //****************************CHOICE FUNCTION USED TO MAINTAIN STATUS ******************* */
     public function Choice($id,$candidate)
     {
         $data=job_form::where('id',$candidate)->first();
         $data->update(['status'=>$id]);
-        return back();
+        return redirect('Applicantions')->with('alert','Apllicant Status Updated');
     }
+
+    //****************************DELETE APLLICANT FUNCTION USED TO DELETE APLLICATION ******************* */
     public function DeleteApplicant($id)
     {
         $ob = job_form::find($id);
         unlink(public_path('storage/store/'.$ob->image));
         $ob->delete();
-        return back();
+        return redirect()->back()->with('alert','Candidate Apllication Deleted');
       }
+
+      //****************************SEARCH FUNCTION USED TO SEARCH CANDIDATE WITH TICKET NUMBER ******************* */
       public function Search(Request $request)
       {
         if($request->isMethod('post'))

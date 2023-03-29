@@ -28,10 +28,17 @@
                     <td>{{ $d->id }}</td>
                     <td>{{ $d->name }}</td>
                     <td><a href="Review/{{ $d->id}}">view</a></td>
-                    <td><a href="Apllicantions/{{ $d->id }}">Delete</a></td>
+                    <td><a href="Applicantions/{{ $d->id }}">Delete</a></td>
                 </tr>
                 @endforeach
             <tbody>
+                <script>
+                    var msg = '{{Session::get('alert')}}';
+                    var exist = '{{Session::has('alert')}}';
+                    if(exist){
+                      alert(msg);
+                    }
+                  </script>
         </table>
     </div>
 </body>
